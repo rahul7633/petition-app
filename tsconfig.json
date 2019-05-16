@@ -3,12 +3,9 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "dist",
-    "sourceMap": true
+    "sourceMap": true,
+    "lib": ["es6"]
   },
-  "files": [
-    "./node_modules/@types/mocha/index.d.ts",
-    "./node_modules/@types/node/index.d.ts"
-  ],
   "include": [
     "src/**/*.ts"
   ],
