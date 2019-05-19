@@ -14,7 +14,7 @@ export class UserValidator {
         const req: Request = params.req
         req.session.user = null
         return User.findUserByEmail(value).then((user) => {
-          if (user && user.email==value) {
+          if (user && user.email === value) {
             throw new Error('Email must be unique.')
           }
         })

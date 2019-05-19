@@ -20,5 +20,4 @@ describe('App', () => {
   it('connect mysql', (done) => {
     db.connectMySQL(done)
   })
-
 })

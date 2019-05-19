@@ -60,26 +60,21 @@ const Model = db.sequelize.define('user', {
   }
 }, {
   // options
-});
-
+})
 
 class UserModel {
-
-  constructor () {
-  }
-
   createUser (user) {
     return Model.create(user)
   }
 
   getAllUsers (where, options, projection = null) {
     return Model.findAll({
-      where: {deleted: 0, ...where},
+      where: { deleted: 0, ...where },
       attributes: { exclude: ['password'] },
       order: [ ['first_name', 'asc'] ],
       limit: options.limit,
       offset: options.offset
-    });
+    })
   }
 
   findUserByEmail (email: string) {

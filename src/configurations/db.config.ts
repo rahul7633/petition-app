@@ -7,7 +7,7 @@ import { Sequelize } from 'sequelize'
 class Database {
   public sequelize
 
-  /*public connectMongo (callback?: any) {
+  /* public connectMongo (callback?: any) {
     const DB_USER = process.env.DB_USER
     const DB_PASS = process.env.DB_PASS
     const DB_HOST = process.env.DB_HOST
@@ -28,7 +28,7 @@ class Database {
       console.log('Successfully connected to MongoDB')
       if (callback) callback()
     })
-  }*/
+} */
 
   public connectMySQL (callback?: any) {
     const DB_USER = process.env.MYSQL_USER
