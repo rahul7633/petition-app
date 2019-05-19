@@ -13,11 +13,13 @@ export class SiteController {
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.mapped() })
     }
-    const postData = matchedData(req)
+    const formData = matchedData(req)
     try {
-      postData.User.password = await bcrypt.hash(postData.User.password, 10)
-      const result = await User.createUser(postData.User)
-      return res.status(200).json({ success: true, data: {} })
+      formData.password = await bcrypt.hash(formData.password, 10)
+      const result = await User.createUser(formData)
+      delete formData['password']
+      formData['id'] = result['id']
+      return res.status(200).json({ success: true, data: formData })
     } catch (err) {
       return res.status(500).json(err)
     }
@@ -41,7 +43,8 @@ export class SiteController {
   static async profile (req: Request, res: Response) {
     try {
       const user = req.session.user
-      return res.status(200).json({ success: true, data: user })
+      const userData = await User.findUserById(user.id)
+      return res.status(200).json({ success: true, data: userData })
     } catch (err) {
       return res.status(500).json(err)
     }

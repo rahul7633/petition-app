@@ -19,6 +19,13 @@ export class Auth {
   }
 
   static isAdminLoggedin (req: Request, res: Response, next) {
-    next()
+    Auth.isLoggedin(req, res, () => {
+      const user = req.session.user
+      if (user.role !== '1') {
+        res.status(403).json({ message: 'You are not allowed to perform this section.' })
+        null
+      }
+      return next()
+    })
   }
 }

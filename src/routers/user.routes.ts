@@ -29,7 +29,7 @@ const router: Router = Router()
  *         description: Return success flag, and list of users
  */
 /* eslint-enable */
-router.get('/', Auth.isLoggedin, Paginator.setOptions, UserController.getAllUsers)
+router.get('/', Auth.isAdminLoggedin, Paginator.initialise, UserController.getAllUsers)
 
 /* eslint-disable */
 /**

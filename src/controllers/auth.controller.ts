@@ -18,13 +18,13 @@ class Auth {
     const expires = moment().utc().add({ minutes: 30 }).unix()
     const token = jwt.encode({
       exp: expires,
-      user: user._id
+      user: user.id
     }, process.env.JWT_SECRET)
 
     return {
       token: `JWT ${token}`,
       expires: moment.unix(expires).utc(),
-      user: user._id
+      user: user.id
     }
   }
 
@@ -43,7 +43,7 @@ class Auth {
             return done(null, false, { message: 'The user in the token was not found' })
           }
 
-          return done(null, { id: user.id })
+          return done(null, { id: user.id, role: user.role })
         })
         .catch((err) => done(err))
     })

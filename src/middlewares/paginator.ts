@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
 export class Paginator {
-  static setOptions (req: Request, res: Response, next) {
+  static initialise (req: Request, res: Response, next) {
     let pageno = req.query.pageno
     if (Number.isNaN(pageno) || !pageno) {
       pageno = 1
@@ -17,7 +17,7 @@ export class Paginator {
     }
 
     const skip = (pageno - 1) * limit
-    req.session.queryOpts = { limit, skip }
+    req.session.paginator = { limit, skip }
     next()
   }
 }
