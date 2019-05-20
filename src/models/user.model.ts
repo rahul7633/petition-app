@@ -57,6 +57,14 @@ const Model = db.sequelize.define('user', {
   deleted: {
     type: DataTypes.BOOLEAN,
     allowNull: true
+  },
+  created: {
+    type: DataTypes.STRING,
+    allowNull: true
+  },
+  modified: {
+    type: DataTypes.DATE,
+    allowNull: true
   }
 }, {
   // options

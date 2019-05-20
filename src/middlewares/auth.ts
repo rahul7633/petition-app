@@ -28,4 +28,37 @@ export class Auth {
       return next()
     })
   }
+
+  static isSponsorLoggedin (req: Request, res: Response, next) {
+    Auth.isLoggedin(req, res, () => {
+      const user = req.session.user
+      if (user.role !== '4') {
+        res.status(403).json({ message: 'You are not allowed to perform this section.' })
+        null
+      }
+      return next()
+    })
+  }
+
+  static isSignerLoggedin (req: Request, res: Response, next) {
+    Auth.isLoggedin(req, res, () => {
+      const user = req.session.user
+      if (user.role !== '2') {
+        res.status(403).json({ message: 'You are not allowed to perform this section.' })
+        null
+      }
+      return next()
+    })
+  }
+  
+  static isCirculatorLoggedin (req: Request, res: Response, next) {
+    Auth.isLoggedin(req, res, () => {
+      const user = req.session.user
+      if (user.role !== '3') {
+        res.status(403).json({ message: 'You are not allowed to perform this section.' })
+        null
+      }
+      return next()
+    })
+  }
 }

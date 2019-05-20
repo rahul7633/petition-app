@@ -4,3 +4,4 @@ db.connectMySQL()
 // db.connectMongo()
 
 export { User } from './user.model'
+export { Petition } from './petition.model'

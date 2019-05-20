@@ -8,7 +8,7 @@ import { User } from '../models'
 * Controller to handle request to /users
 */
 export class SiteController {
-  static async createUser (req: Request, res: Response) {
+  static async signup (req: Request, res: Response) {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.mapped() })

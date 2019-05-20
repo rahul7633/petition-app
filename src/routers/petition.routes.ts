@@ -2,6 +2,8 @@ import { Router, Request, Response } from 'express'
 import { check, validationResult } from 'express-validator/check'
 import { matchedData, sanitize } from 'express-validator/filter'
 import { Auth, Paginator } from '../middlewares'
+import { PetitionController } from '../controllers'
+import { PetitionValidator } from '../validators'
 
 const router: Router = Router()
 
@@ -72,9 +74,10 @@ const router: Router = Router()
  *           type: number
  *     responses:
  *       200:
- *         description: Return success flag, and user data
+ *         description: Return success flag, and data
  */
 /* eslint-enable */
+router.post('/', Auth.isLoggedin, PetitionValidator.create, PetitionController.create)
 
 /* eslint-disable */
 /**
@@ -83,7 +86,7 @@ const router: Router = Router()
  *   get:
  *     tags:
  *       - Petition
- *     description: Return all petitions
+ *     description: Return all petitions.
  *     produces:
  *       - application/json
  *     parameters:
@@ -112,7 +115,7 @@ const router: Router = Router()
  *         type: number
  *     responses:
  *       200:
- *         description: Return success flag, and list of users
+ *         description: Return success flag, and data
  */
 /* eslint-enable */
 
@@ -123,7 +126,7 @@ const router: Router = Router()
  *   get:
  *     tags:
  *       - Petition
- *     description: Return single petition object 
+ *     description: Return single petition object.
  *     produces:
  *       - application/json
  *     parameters:
@@ -140,18 +143,18 @@ const router: Router = Router()
  *         type: number
  *     responses:
  *       200:
- *         description: Return success flag, and list of users
+ *         description: Return success flag, and data
  */
 /* eslint-enable */
 
 /* eslint-disable */
 /**
  * @swagger
- * /petitions/{petition_id}/meetings/{circulator_id}:
+ * /petitions/{petition_id}/signers/{signer_id}/meetings:
  *   post:
  *     tags:
  *       - Petition
- *     description: Create meeting for signer with circulator against petition 
+ *     description: Create meeting for signer with circulator against petition.
  *     consumes:
  *       - application/x-www-form-urlencoded
  *     produces:
@@ -168,6 +171,11 @@ const router: Router = Router()
  *         in: path
  *         required: true
  *         type: number
+ *       - name: signer_id
+ *         description: Signer-id to create meeting
+ *         in: path
+ *         required: true
+ *         type: number
  *       - name: circulator_id
  *         description: Circulator-id to create meeting
  *         in: path
@@ -175,6 +183,121 @@ const router: Router = Router()
  *         type: number
  *     responses:
  *       200:
- *         description: Return success flag, and list of users
+ *         description: Return success flag, and data
  */
 /* eslint-enable */
+
+/* eslint-disable */
+/**
+ * @swagger
+ * /petitions/{petition_id}/circulators/{circulator_id}/meetings:
+ *   get:
+ *     tags:
+ *       - Petition
+ *     description: Fetch meetings for circulator against petition.
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         description: JWT token
+ *         in: header
+ *         required: true
+ *         type: string
+ *         default: Bearer {token}
+ *       - name: petition_id
+ *         description: Petition-id to compare in meetings
+ *         in: path
+ *         required: true
+ *         type: number
+ *       - name: circulator_id
+ *         description: Circulator-id to compare in meetings
+ *         in: path
+ *         required: true
+ *         type: number
+ *     responses:
+ *       200:
+ *         description: Return success flag, and data
+ */
+/* eslint-enable */
+
+/* eslint-disable */
+/**
+ * @swagger
+ * /petitions/{petition_id}/circulators/{circulator_id}/meetings/{meeting_id}/accept:
+ *   put:
+ *     tags:
+ *       - Petition
+ *     description: Accept meeting with signer for circulator against petition.
+ *     consumes:
+ *       - application/x-www-form-urlencoded
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         description: JWT token
+ *         in: header
+ *         required: true
+ *         type: string
+ *         default: Bearer {token}
+ *       - name: petition_id
+ *         description: Petition-id to compare in meetings
+ *         in: path
+ *         required: true
+ *         type: number
+ *       - name: circulator_id
+ *         description: Circulator-id to compare in meetings
+ *         in: path
+ *         required: true
+ *         type: number
+ *       - name: meeting_id
+ *         description: Meeting-id to compare in meetings
+ *         in: path
+ *         required: true
+ *         type: number
+ *     responses:
+ *       200:
+ *         description: Return success flag, and data
+ */
+/* eslint-enable */
+
+/* eslint-disable */
+/**
+ * @swagger
+ * /petitions/{petition_id}/circulators/{circulator_id}/meetings/{meeting_id}/reject:
+ *   put:
+ *     tags:
+ *       - Petition
+ *     description: Reject meeting with signer for circulator against petition.
+ *     consumes:
+ *       - application/x-www-form-urlencoded
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: Authorization
+ *         description: JWT token
+ *         in: header
+ *         required: true
+ *         type: string
+ *         default: Bearer {token}
+ *       - name: petition_id
+ *         description: Petition-id to compare in meetings
+ *         in: path
+ *         required: true
+ *         type: number
+ *       - name: circulator_id
+ *         description: Circulator-id to compare in meetings
+ *         in: path
+ *         required: true
+ *         type: number
+ *       - name: meeting_id
+ *         description: Meeting-id to compare in meetings
+ *         in: path
+ *         required: true
+ *         type: number
+ *     responses:
+ *       200:
+ *         description: Return success flag, and data
+ */
+/* eslint-enable */
+
+export const PetitionRouter: Router = router

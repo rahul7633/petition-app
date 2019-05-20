@@ -7,7 +7,7 @@ import * as session from 'express-session'
 import * as helmet from 'helmet'
 import * as morgan from 'morgan'
 import * as os from 'os'
-import { UserRouter, SiteRouter } from './routers'
+import { UserRouter, SiteRouter, PetitionRouter } from './routers'
 import Auth from './controllers/auth.controller'
 
 class App {
@@ -48,6 +48,7 @@ class App {
     })
     this.express.use(`${process.env.API_BASE}/`, SiteRouter)
     this.express.use(`${process.env.API_BASE}/users/`, UserRouter)
+    this.express.use(`${process.env.API_BASE}/petitions/`, PetitionRouter)
 
     // handle 404
     this.express.use((req, res) => {
@@ -108,7 +109,7 @@ class App {
         version: '1.0.0',
         description: 'Hello i am swagger. I am one step ahead of postman. My job is to provide API description.',
       },
-      host: `${process.env.HOST}:${process.env.PORT}`,
+      host: `${process.env.SWAGGER_HOST}`,
       basePath: '/api/v1/',
       schemes: [
         'http',

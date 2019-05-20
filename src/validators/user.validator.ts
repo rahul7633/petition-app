@@ -5,7 +5,7 @@ import * as bcrypt from 'bcrypt'
 import { User } from '../models'
 
 export class UserValidator {
-  public static createUser = [
+  public static signup = [
     check('email')
       .isEmail().withMessage('Invalid email address supplied.')
       .trim()

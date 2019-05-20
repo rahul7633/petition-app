@@ -93,7 +93,7 @@ const basicAuthMiddleware = basicAuth({
  *         description: Return success flag, and user data
  */
 /* eslint-enable */
-router.post('/signup', UserValidator.createUser, SiteController.createUser)
+router.post('/signup', UserValidator.signup, SiteController.signup)
 
 /* eslint-disable */
 /**
